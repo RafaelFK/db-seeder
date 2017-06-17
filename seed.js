@@ -17,8 +17,9 @@ connection.connect();
 // fillEscola();
 // fillPontoTuristico();
 // fillDisciplina();
+// fillEscolaDisciplina();
 
-fillEscolaDisciplina();
+fillTelefone();
 
 connection.end();
 
@@ -144,6 +145,43 @@ function fillEscolaDisciplina() {
 	}
 }
 
+function fillTelefone() {
+	var rowsTeatros = convertCSV('./csv/teatros.csv');
+	var rowsMuseus = convertCSV('./csv/museus_.csv');
+
+	for(let row of rowsTeatros) {
+		connection.query(`INSERT INTO Telefone VALUES ("${row.Telefone}", "${row.Nome}")`, (err, rows, fields) => {
+			if(err)
+				console.log(err);
+				// throw err; 
+		});
+
+		connection.query(`INSERT INTO Telefone VALUES ("${ramdomPhone()}", "${row.Nome}")`, (err, rows, fields) => {
+			if(err)
+				console.log(err);
+				// throw err; 
+		});
+	}
+
+	for(let row of rowsMuseus) {
+		connection.query(`INSERT INTO Telefone VALUES ("${row.Telefone}", "${row.Nome}")`, (err, rows, fields) => {
+			if(err)
+				console.log(err);
+				// throw err; 
+		});
+
+		connection.query(`INSERT INTO Telefone VALUES ("${ramdomPhone()}", "${row.Nome}")`, (err, rows, fields) => {
+			if(err)
+				console.log(err);
+				// throw err; 
+		});
+	}
+}
+
 function isNormalInteger(str) {
 	return /^\+?(0|[1-9]\d*)$/.test(str);
+}
+
+function ramdomPhone() {
+	return Math.floor(Math.random()*8999+1000) + '-' + Math.floor(Math.random()*8999+1000);
 }
